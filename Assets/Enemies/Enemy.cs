@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public abstract class Enemy : MonoBehaviour
 {
     public UnityEvent OnTakeDamageEnemy;
+    public float MaxHP;
     public float HP;
     public bool ImmortalForNow;
     public bool CanFly;

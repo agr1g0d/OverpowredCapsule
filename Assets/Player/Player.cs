@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float MaxPlayerHP;
 
     [SerializeField] private DamageScreen _damageScreen;
+    [SerializeField] private ParticleSystem _electroEffect;
     [SerializeField] private CountHP _countHP;
 
     private PlayerTakesDamageUnityEvent _onTakeDamagePlayer;
@@ -37,6 +38,10 @@ public class Player : MonoBehaviour
         if (!_invulnerable)
         {
             PlayerHP -= damage.Damage;
+            if (damage.Type == TypeDamage.electrical)
+            {
+                _electroEffect.Play();
+            }
             _onTakeDamagePlayer.Invoke(cooldown);
             if (PlayerHP <= 0)
             {
