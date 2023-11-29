@@ -6,18 +6,29 @@ using UnityEngine;
 public class Aim : MonoBehaviour
 {
     public Weapon WeaponPrefab;
+    public bool ChangeHand;
+
     private Weapon _weapon;
     private bool _instantiatedRight;
     private bool _instantiatedLeft;
 
     [SerializeField] private Camera _camera;
+
     [SerializeField] private Transform _aim;
+    [SerializeField] private Transform _playerTransform;
+    [SerializeField] private Transform _head;
     [SerializeField] private Transform _rightArm;
     [SerializeField] private Transform _leftArm;
     [SerializeField] private Transform _rightHand;
     [SerializeField] private Transform _leftHand;
+
     [SerializeField] private Vector3 _defoultArmEulers;
+
+    [SerializeField] private Animator _animatorRight;
+    [SerializeField] private Animator _animatorLeft;
+
     [SerializeField] private float _lerpCoeff;
+
     [SerializeField] private FlipManager _flipManager;
 
     private void Start()
@@ -36,16 +47,31 @@ public class Aim : MonoBehaviour
         _aim.position = point;
         Vector3 toAim = _aim.position - transform.position;
         transform.rotation = Quaternion.LookRotation(toAim);
-        if (WeaponPrefab.Type == "Pistol")
+        if (!_flipManager.IsFlipping)
+        {
+            _head.localRotation = Quaternion.LookRotation(new Vector3(toAim.x, 0, -Mathf.Abs(toAim.y)));
+        } else
+        {
+            _head.localRotation = Quaternion.Lerp(_head.localRotation, Quaternion.identity, Time.deltaTime * 10);
+        }
+        if (WeaponPrefab.Type == TypeWeapon.pistol)
         {
             if (transform.localEulerAngles.y < 180f && !_flipManager.IsFlipping)
             {
                 _instantiatedRight = false;
                 if (!_instantiatedLeft)
                 {
+                    
                     _weapon.DeleteWeapon();
                     _weapon = Instantiate(WeaponPrefab, _leftHand, false);
                     _instantiatedLeft = true;
+                    ChangeHand = true;
+                }
+                if (ChangeHand)
+                {
+                    ChangeHand = true;
+                    _animatorLeft.SetBool("StopWalking", true);
+                    _animatorRight.SetBool("StopWalking", false);
                 }
                 float localAngleX = _leftArm.localEulerAngles.x;
                 if (localAngleX > 180)
@@ -72,6 +98,13 @@ public class Aim : MonoBehaviour
                     _weapon.DeleteWeapon();
                     _weapon = Instantiate(WeaponPrefab, _rightHand, false);
                     _instantiatedRight = true;
+                    ChangeHand = true;
+                }
+                if (ChangeHand)
+                {
+                    ChangeHand = false;
+                    _animatorRight.SetBool("StopWalking", true);
+                    _animatorLeft.SetBool("StopWalking", false);
                 }
                 float localAngleX = _rightArm.localEulerAngles.x;
                 if (localAngleX > 180)
@@ -90,8 +123,13 @@ public class Aim : MonoBehaviour
                     _rightArm.localEulerAngles = new Vector3(60, _rightArm.localEulerAngles.y, _rightArm.localEulerAngles.z);
                 }
             }
+        } else if (WeaponPrefab.Type == TypeWeapon.knife)
+        {
         }
-        
+    }
+
+    public void LockWalingAnimation()
+    {
 
     }
 }

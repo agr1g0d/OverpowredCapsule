@@ -21,8 +21,11 @@ public class Movement : MonoBehaviour
     [SerializeField] private PhysicMaterial _phMaterial;
     [SerializeField] private Transform _crouchingBody;
     [SerializeField] private Transform _body;
+    [SerializeField] private Animator _animatorRight;
+    [SerializeField] private Animator _animatorLeft;
     [SerializeField] private FlipManager _flipManager;
     [SerializeField] private WallConnection _wallConnectionPrefab;
+    [SerializeField] private Aim _aim;
 
     private Vector3 _stickContactPoint;
     private Vector3 _jumpDirection;
@@ -143,12 +146,16 @@ public class Movement : MonoBehaviour
             _speedUp = true;
             Speed *= SpeedMultiplier;
             MaxSpeed *= SpeedMultiplier;
+            _animatorRight.speed *= SpeedMultiplier;
+            _animatorLeft.speed *= SpeedMultiplier;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) && _speedUp)
         {
+            _speedUp = false;
             Speed /= SpeedMultiplier;
             MaxSpeed /= SpeedMultiplier;
-            _speedUp = false;
+            _animatorRight.speed /= SpeedMultiplier;
+            _animatorLeft.speed /= SpeedMultiplier;
         }
         //jump
         if (Input.GetKeyDown(KeyCode.Space) && _touchsThng)
@@ -175,6 +182,12 @@ public class Movement : MonoBehaviour
             _crouchTimer = 0f;
             _crouchingBody.localScale = Vector3.Lerp(_crouchingBody.localScale, Vector3.one, Time.deltaTime * _lerpMultiplyer);
         }
+        //idle
+        if (_rigidbody.velocity == Vector3.zero)
+        {
+            _animatorRight.SetBool("StopWalking", true);
+            _animatorLeft.SetBool("StopWalking", true);
+        }
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -185,6 +198,7 @@ public class Movement : MonoBehaviour
             {
                 _grounded = true;
                 _shouldNotStick = true;
+                _aim.ChangeHand = true;
                 return;
             } else if (collision.collider.attachedRigidbody != null && collision.collider.attachedRigidbody.TryGetComponent(out Enemy e))
             {
@@ -304,5 +318,7 @@ public class Movement : MonoBehaviour
         _phMaterial.dynamicFriction = 0f;
         _phMaterial.frictionCombine = PhysicMaterialCombine.Minimum;
         _constantForce.force = _additionalForce;
+        _animatorRight.SetBool("StopWalking", true);
+        _animatorLeft.SetBool("StopWalking", true);
     }
 }

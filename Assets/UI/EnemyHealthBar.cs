@@ -14,6 +14,11 @@ public class EnemyHealthBar : MonoBehaviour
         UpdateHPValue();
     }
 
+    private void Update()
+    {
+        transform.rotation = Quaternion.LookRotation(Vector3.forward);
+    }
+
     public void UpdateHPValue()
     {
         _slider.maxValue = _enemyInfo.MaxHP;
@@ -22,7 +27,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     private IEnumerator LerpSliderValue()
     {
-        for (float value = _slider.value; value != _enemyInfo.HP; value = Mathf.Lerp(value, _enemyInfo.HP, Time.deltaTime * 2f))
+        for (float value = _slider.value; value != _enemyInfo.HP; value = Mathf.Lerp(value, _enemyInfo.HP, Time.deltaTime * 5f))
         {
             _slider.value = value;
             yield return null;

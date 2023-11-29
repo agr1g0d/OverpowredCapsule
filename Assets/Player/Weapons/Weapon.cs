@@ -4,10 +4,19 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public string Type;
+    public TypeWeapon Type;
     public float ShotsPerSecond;
     public void DeleteWeapon()
     {
         Destroy(gameObject);
     }
+}
+public enum TypeWeapon
+{
+    pistol,
+    knife,
+    rifle,
+    sword,
+    shield,
+    spell
 }
