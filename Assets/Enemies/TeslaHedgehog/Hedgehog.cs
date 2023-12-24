@@ -57,7 +57,7 @@ public class Hedgehog : MonoBehaviour
             && hit.collider.attachedRigidbody.TryGetComponent(out Player p))
         {
             _ray.rotation = Quaternion.LookRotation(_playerTransform.position - _ray.position);
-            _electricityHittingRay.startSpeed = 20 * (Vector3.Distance(_ray.position, _playerTransform.position) / _electroHitDistance);
+            _electricityHittingRay.startSpeed = 15 * (Vector3.Distance(_ray.position, _playerTransform.position) / _electroHitDistance);
             p.TakeDamage(ElectricityDamage, 0.25f);
             if (!_rayPlays)
             {
