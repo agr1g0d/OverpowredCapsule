@@ -68,7 +68,7 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _alpfa: 1
+    - _alpfa: 0.85
     - _frensel: 2.3
     - _multyplier: 3
     - _offset: 0.8
