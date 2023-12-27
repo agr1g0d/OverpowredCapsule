@@ -9882,7 +9882,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -14806,7 +14806,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -19695,7 +19695,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -24583,11 +24583,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   ShotsPerSecond: 4
-  Damage: 5
-  Power: 500
+  Damage: 1
+  Power: 10000
   _bulletSpawner: {fileID: 8317477639083628075}
   _effect: {fileID: 7257866336677346828}
-  _flipManager: {fileID: 0}
+  _shot: {fileID: 7123737002878237280, guid: f73cbaaf109c0b94fb2db0ccf6a0b8c1, type: 3}
 --- !u!4 &831657313614654880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 505cb6b97d22dba4ebb393afef9591ba, type: 3}

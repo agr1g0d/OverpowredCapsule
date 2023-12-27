@@ -10,4 +10,9 @@ public class CameraFollow : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime * _lerpMultiplier);
     }
+
+    public void Shake(float power)
+    {
+        transform.position += Vector3.up * power;
+    }
 }

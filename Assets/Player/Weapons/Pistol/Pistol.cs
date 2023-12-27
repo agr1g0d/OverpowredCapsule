@@ -7,12 +7,15 @@ public class Pistol : Weapon
     public float Power;
     [SerializeField] private Transform _bulletSpawner;
     [SerializeField] private ParticleSystem _effect;
-    [SerializeField] private FlipManager _flipManager;
+    [SerializeField] private GameObject _shot;
+    private FlipManager _flipManager;
+    private CameraFollow _camera;
     private float _timer = 999f;
 
     private void Start()
     {
         _flipManager = FindObjectOfType<FlipManager>();
+        _camera = FindObjectOfType<CameraFollow>();
     }
 
     private void Update()
@@ -22,12 +25,19 @@ public class Pistol : Weapon
         {
             _timer = 0;
             _effect.Play();
-            if (Physics.Raycast(_bulletSpawner.position, _bulletSpawner.forward, out RaycastHit info) 
-                && info.collider.attachedRigidbody != null 
-                && info.collider.attachedRigidbody.TryGetComponent(out Enemy enemy))
+            _camera.Shake(Power / 1000);
+            if (Physics.Raycast(_bulletSpawner.position, _bulletSpawner.forward, out RaycastHit info))
             {
-                enemy.TakeDamage(Damage);
-                info.collider.attachedRigidbody.AddForceAtPosition(_bulletSpawner.forward * Power, info.point);
+                if (info.collider.attachedRigidbody != null)
+                {
+                    if (info.collider.attachedRigidbody.TryGetComponent(out Enemy enemy))
+                    {
+                        enemy.TakeDamage(Damage);
+                    }
+                    info.collider.attachedRigidbody.AddForceAtPosition(_bulletSpawner.forward * Power, info.point);
+                }
+                GameObject hit = Instantiate(_shot, info.point, Quaternion.identity);
+                Destroy(hit, 0.7f);
             }
         }
     }

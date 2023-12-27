@@ -15578,7 +15578,7 @@ MonoBehaviour:
         m_CallState: 2
   MaxHP: 20
   HP: 20
-  ImmortalForNow: 0
+  InvulnerableForNow: 0
   CanFly: 1
   _rigidbody: {fileID: 2966788085234229143}
   ContactDamage: {fileID: 8341244476898429567}
