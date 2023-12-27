@@ -6,6 +6,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public TypeWeapon Type;
     public float ShotsPerSecond;
+    public float Damage;
     public void DeleteWeapon()
     {
         Destroy(gameObject);

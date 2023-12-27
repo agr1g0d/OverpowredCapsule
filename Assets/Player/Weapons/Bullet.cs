@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            if (!enemy.ImmortalForNow)
+            if (!enemy.InvulnerableForNow)
             {
                 enemy.HP -= Damage;
                 enemy.OnTakeDamageEnemy.Invoke();
@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            if (!enemy.ImmortalForNow)
+            if (!enemy.InvulnerableForNow)
             {
                 enemy.HP -= Damage;
                 enemy.OnTakeDamageEnemy.Invoke();

@@ -28,7 +28,7 @@ public class Aim : MonoBehaviour
 
     private void Start()
     {
-        _weapon = Instantiate(WeaponPrefab,_leftHand.position, Quaternion.Euler(Vector3.left * 90), _leftHand);
+        _weapon = Instantiate(WeaponPrefab, _rightHand.position, _rightHand.rotation, _rightHand);
 
     }
 
@@ -44,14 +44,16 @@ public class Aim : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(ToAim);
         if (!_flipManager.IsFlipping)
         {
-            _head.localRotation = Quaternion.LookRotation(new Vector3(ToAim.x, 0, -Mathf.Abs(ToAim.y)));
+            _head.localRotation = Quaternion.LookRotation(new Vector3(Mathf.Clamp(ToAim.x, -.4f, .4f), 0, -Mathf.Abs(ToAim.y)));
+            _rightArm.rotation = Quaternion.LookRotation(ToAim);
         } else
         {
             _head.localRotation = Quaternion.Lerp(_head.localRotation, Quaternion.identity, Time.deltaTime * 10);
+            _rightArm.eulerAngles = _playerTransform.eulerAngles;
         }
+
         if (WeaponPrefab.Type == TypeWeapon.pistol)
         {
-            
         } else if (WeaponPrefab.Type == TypeWeapon.knife)
         {
         }
