@@ -120,10 +120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PreviewPrefab: {fileID: 0}
+  InventoryIconPrefab: {fileID: 0}
   properties: []
   Name: "\u0417\u0435\u043B\u044C\u0435 \u0438\u0441\u0446\u0435\u043B\u0435\u043D\u0438\u044F"
   Description: "\u0445\u0438\u043B\u043A\u0430"
-  InventoryIconPrefab: {fileID: 0}
+  TypeItem: 0
+  Hold: 0
+  SurroundingSpherePrefab: {fileID: 0}
   _height: 0.2
   _friquency: 3
   _rotation: 180
@@ -161,31 +164,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98296297
+      value: 0.9913602
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12940949
+      value: 0.11286925
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.017037077
+      value: -0.01804321
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.12940949
+      value: 0.06434342
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 15
+      value: 13.068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -1.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 15
+      value: 7.284
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 769a5d361e3ba034b8518433232c09a2, type: 3}
       propertyPath: m_Name

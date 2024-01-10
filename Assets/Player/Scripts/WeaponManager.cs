@@ -20,7 +20,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Vector3 _defoultArmEulers;
     [SerializeField] float _lerpCoeff;
     [SerializeField] FlipManager _flipManager;
-    [SerializeField] Inventory _inventory;
+    [SerializeField] InventoryManager _inventoryManager;
 
     private void Start()
     {
@@ -72,9 +72,13 @@ public class WeaponManager : MonoBehaviour
         {
             Destroy(weapon.gameObject);
         }
-        for (int i = 0; i < _inventory.Weapons.Count; i++)
+        for (int i = 0; i < _inventoryManager.Weapons.Count; i++)
         {
-            _weapons.Add(Instantiate(_inventory.Weapons[i], _rightHand));
+            _weapons.Add(_inventoryManager.Weapons[i]);
+            _inventoryManager.Weapons[i].transform.SetParent(_rightHand);
+            _inventoryManager.Weapons[i].transform.localPosition = Vector3.zero;
+            _inventoryManager.Weapons[i].transform.localRotation = Quaternion.identity;
+
             if (i != _currentWeapon)
             {
                 _weapons[i].gameObject.SetActive(false);

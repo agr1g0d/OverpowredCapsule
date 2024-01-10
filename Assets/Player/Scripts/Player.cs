@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -13,47 +14,38 @@ public class Player : MonoBehaviour
     [SerializeField] DamageScreen _damageScreen;
     [SerializeField] ParticleSystem _electroEffect;
     [SerializeField] CountHP _countHP;
-    [SerializeField] Inventory _inventory;
+    [SerializeField] InventoryManager _inventoryManager;
 
     private PlayerTakesDamageUnityEvent _onTakeDamagePlayer;
     private bool _invulnerable;
-    private bool _checkInventory;
 
     private void Start()
     {
         _onTakeDamagePlayer = new PlayerTakesDamageUnityEvent();
         _onTakeDamagePlayer.AddListener(damage);
-        _inventory.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        for (int i = 0;  i < Items.Count; i++)
         {
-            if (!_checkInventory)
+            if (Items[i].enabled)
             {
-                _checkInventory = true;
-                _inventory.gameObject.SetActive(true);
-            } else
-            {
-                _checkInventory = false;
-                _inventory.gameObject.SetActive(false);
-            }
-        }
-
-        foreach (InventoryItem item in Items)
-        {
-            if (item.enabled)
-            {
-                if (Vector3.Distance(transform.position, item.transform.position) < PickUpDistance)
+                if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
                 {
-                    print("можно");
                     if (Input.GetKey(KeyCode.E))
                     {
-                        _inventory.OnItemPickedEvent.Invoke(item);
+                        _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
+                        Items.RemoveAt(i);
                     }
                 }
             }
+        }
+
+
+        foreach (InventoryItem item in Items)
+        {
+            
         }
     }
 

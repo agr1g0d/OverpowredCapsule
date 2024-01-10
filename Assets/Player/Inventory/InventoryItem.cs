@@ -14,12 +14,11 @@ public class InventoryItem : MonoBehaviour
 
     [SerializeField] GameObject SurroundingSpherePrefab;
 
-    private void Start()
+    private void Awake()
     {
         Player player = FindObjectOfType<Player>().GetComponent<Player>();
         if (player != null)
         {
-            print("add");
             player.Items.Add(this);
         }
     }
