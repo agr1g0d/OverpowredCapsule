@@ -12,12 +12,16 @@ public class WallConnection : MonoBehaviour
     {
         _playerPosition = FindObjectOfType<Movement>().transform;
         _joint.connectedBody = _playerPosition.GetComponent<Rigidbody>();
-        //_joint.maxDistance = Vector3.Distance(_playerPosition.position, transform.position) - 0.2f;
     }
 
     private void Update()
     {
-        transform.position = new Vector3(transform.position.x, _playerPosition.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, _playerPosition.position.y, 0);
+    }
+
+    public void Move(float distanse)
+    {
+        transform.Translate(0, distanse, 0);
     }
 
     public void Disconnect()

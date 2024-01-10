@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -16,6 +15,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _walkingRotation;
     [SerializeField] private float _lerpMultiplyer;
     [SerializeField] private float _maxAngularVelocity;
+    [SerializeField] private float _wallrunStrenght;
+    [SerializeField] private float _wallrunDistance;
     [SerializeField] private ConstantForce _constantForce;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private PhysicMaterial _phMaterial;
@@ -23,7 +24,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Transform _body;
     [SerializeField] private FlipManager _flipManager;
     [SerializeField] private WallConnection _wallConnectionPrefab;
-    [SerializeField] private Aim _aim;
+    [SerializeField] private WeaponManager _aim;
 
     private Vector3 _stickContactPoint;
     private Vector3 _jumpDirection;
@@ -114,20 +115,25 @@ public class Movement : MonoBehaviour
 
         if (_wallRun)
         {
-            _rigidbody.AddForce(0, 30f * Time.fixedDeltaTime * Input.GetAxis("Vertical"), 0, ForceMode.VelocityChange);
+            if (_connection != null)
+            {
+                _rigidbody.AddForce(0, _wallrunStrenght * Time.fixedDeltaTime * Input.GetAxis("Vertical"), 0, ForceMode.VelocityChange);
+                _connection.Move(_wallrunStrenght * Time.fixedDeltaTime * Input.GetAxis("Vertical"));
+            }
         }
 
         if (_grounded)
         {
             _rigidbody.AddForce(-_rigidbody.velocity.x * horizontalFriction, 0, 0, ForceMode.VelocityChange);
         }
+
     }
 
 
     private void Update()
     {
         //wallrun checking
-        if (Vector3.Distance(transform.position, _stickContactPoint) < 2f && _touchsThng)
+        if (Vector3.Distance(transform.position, _stickContactPoint) < _wallrunDistance && _touchsThng)
         {
             _wallRun = true;
         }
@@ -184,15 +190,16 @@ public class Movement : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.attachedRigidbody != null && collision.collider.attachedRigidbody.TryGetComponent(out Enemy e))
+        {
+            _shouldNotStick = true;
+            return;
+        }
         for (int i = 0; i < collision.contactCount; i++)
         {
             if (Vector3.Angle(Vector3.up, collision.contacts[i].normal) < 40)
             {
                 _grounded = true;
-                _shouldNotStick = true;
-                return;
-            } else if (collision.collider.attachedRigidbody != null && collision.collider.attachedRigidbody.TryGetComponent(out Enemy e))
-            {
                 _shouldNotStick = true;
                 return;
             }
@@ -201,16 +208,12 @@ public class Movement : MonoBehaviour
         {
             if (collision.contacts[0].otherCollider.attachedRigidbody != null)
             {
-                if (!collision.contacts[0].otherCollider.attachedRigidbody.TryGetComponent(out Enemy e))
+                if (_connection == null)
                 {
-                    if (_connection == null)
-                    {
-                        _connection = Instantiate(_wallConnectionPrefab, collision.contacts[0].point, Quaternion.identity);
-                    }
-                    _rigidbody.useGravity = false;
-                    _stickContactPoint = transform.position;
-                    _wallRun = true;
+                    _connection = Instantiate(_wallConnectionPrefab, collision.contacts[0].point, Quaternion.identity);
                 }
+                _rigidbody.useGravity = false;
+                _stickContactPoint = transform.position;
             } else
             {
                 if (_connection == null)
@@ -219,8 +222,8 @@ public class Movement : MonoBehaviour
                 }
                 _rigidbody.useGravity = false;
                 _stickContactPoint = transform.position;
-                _wallRun = true;
             }
+            _wallRun = true;
         }
     }
 
@@ -228,25 +231,19 @@ public class Movement : MonoBehaviour
     {
         _rigidbody.freezeRotation = true;
         _flipManager.IsFlipping = false;
-        for (int i = 0; i < collision.contactCount; i++)
-        {
-            if (Vector3.Angle(Vector3.up, collision.contacts[i].normal) < 40)
-            {
-                _grounded = true;
-                _shouldNotStick = true;
-                if (_connection != null)
-                {
-                    _connection.Disconnect();
-                    _connection = null;
-                }
-            } else if (collision.collider.attachedRigidbody != null && collision.collider.attachedRigidbody.TryGetComponent(out Enemy e))
-            {
-                _shouldNotStick = true;
-            }
-        }
         _touchsThng = true;
         _jumpDirection = Vector3.up;
-
+        normal = collision.contacts[0].normal;
+        if (Vector3.Angle(normal, Vector3.up) < 40)
+        {
+            _grounded = true;
+            _shouldNotStick = true;
+            if (_connection != null)
+            {
+                _connection.Disconnect();
+                _connection = null;
+            }
+        }
         if (!_shouldNotStick)
         {
             _timer += Time.deltaTime;
@@ -265,7 +262,7 @@ public class Movement : MonoBehaviour
                 _phMaterial.frictionCombine = PhysicMaterialCombine.Maximum;
                 _rigidbody.useGravity = false;
                 _constantForce.force = -_jumpDirection * 3;
-                if (Input.GetAxis("Vertical") == 0f)
+                /*if (Input.GetAxis("Vertical") == 0f)
                 {
                     _phMaterial.staticFriction = 1f;
                     _phMaterial.dynamicFriction = 1f;
@@ -275,8 +272,12 @@ public class Movement : MonoBehaviour
                     _phMaterial.staticFriction = 0f;
                     _phMaterial.dynamicFriction = 0f;
                     _phMaterial.frictionCombine = PhysicMaterialCombine.Minimum;
-                }
-            }else if (_timer < 4f)
+                }*/
+                _phMaterial.staticFriction = 0f;
+                _phMaterial.dynamicFriction = 0f;
+                _phMaterial.frictionCombine = PhysicMaterialCombine.Minimum;
+            }
+            else if (_timer < 4f)
             {
                 if (_connection != null)
                 {
@@ -295,7 +296,6 @@ public class Movement : MonoBehaviour
                 _constantForce.force = _additionalForce;
             }
         }
-        normal = collision.contacts[0].normal;
     }
     private void OnCollisionExit(Collision collision)
     {

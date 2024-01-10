@@ -7,18 +7,54 @@ public class Player : MonoBehaviour
 {
     public float PlayerHP;
     public float MaxPlayerHP;
+    public float PickUpDistance = 2f;
+    public List<InventoryItem> Items;
 
-    [SerializeField] private DamageScreen _damageScreen;
-    [SerializeField] private ParticleSystem _electroEffect;
-    [SerializeField] private CountHP _countHP;
+    [SerializeField] DamageScreen _damageScreen;
+    [SerializeField] ParticleSystem _electroEffect;
+    [SerializeField] CountHP _countHP;
+    [SerializeField] Inventory _inventory;
 
     private PlayerTakesDamageUnityEvent _onTakeDamagePlayer;
     private bool _invulnerable;
+    private bool _checkInventory;
 
     private void Start()
     {
         _onTakeDamagePlayer = new PlayerTakesDamageUnityEvent();
         _onTakeDamagePlayer.AddListener(damage);
+        _inventory.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (!_checkInventory)
+            {
+                _checkInventory = true;
+                _inventory.gameObject.SetActive(true);
+            } else
+            {
+                _checkInventory = false;
+                _inventory.gameObject.SetActive(false);
+            }
+        }
+
+        foreach (InventoryItem item in Items)
+        {
+            if (item.enabled)
+            {
+                if (Vector3.Distance(transform.position, item.transform.position) < PickUpDistance)
+                {
+                    print("можно");
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        _inventory.OnItemPickedEvent.Invoke(item);
+                    }
+                }
+            }
+        }
     }
 
     private void damage(float cooldown)
