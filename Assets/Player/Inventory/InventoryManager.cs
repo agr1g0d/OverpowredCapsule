@@ -13,6 +13,7 @@ public class InventoryManager : MonoBehaviour
     public Preview Preview;
     public ItemEvent OnItemPickedEvent = new ItemEvent();
 
+    [SerializeField] Transform _pocket; //parent for all consumables, potions and resources
     [SerializeField] RectTransform _weaponsParent;
     [SerializeField] RectTransform _consumablesParent;
     [SerializeField] RectTransform _potionsParent;
@@ -20,7 +21,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] RectTransform _inventoryParent;
     [SerializeField] WeaponManager _weaponManager;
 
-    private bool _openInventory;
+    public bool OpenInventory;
 
     private void Start()
     {
@@ -35,14 +36,14 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!_openInventory)
+            if (!OpenInventory)
             {
-                _openInventory = true;
+                OpenInventory = true;
                 _inventoryParent.gameObject.SetActive(true);
             }
             else
             {
-                _openInventory = false;
+                OpenInventory = false;
                 _inventoryParent.gameObject.SetActive(false);
             }
         }
@@ -52,6 +53,7 @@ public class InventoryManager : MonoBehaviour
     {
         AddItem(item);
         item.Hold = true;
+        item.SetSurroundingSphere(false);
         UpdateItems(item.TypeItem);
     }
 
@@ -78,6 +80,8 @@ public class InventoryManager : MonoBehaviour
             if (Weapons.Count < 3)
             {
                 Potions.Add(p);
+                p.PickUp(_pocket);
+                p.gameObject.SetActive(false);
             }
         }
         else if (item.gameObject.TryGetComponent(out GameResource r))

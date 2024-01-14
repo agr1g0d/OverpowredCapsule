@@ -29,14 +29,17 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.back, Vector3.zero);
-        float distance;
-        plane.Raycast(ray, out distance);
-        Vector3 point = ray.GetPoint(distance);
-        _aim.position = point;
-        ToAim = _aim.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(ToAim);
+        if (!_inventoryManager.OpenInventory)
+        {
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Plane plane = new Plane(Vector3.back, Vector3.zero);
+            float distance;
+            plane.Raycast(ray, out distance);
+            Vector3 point = ray.GetPoint(distance);
+            _aim.position = point;
+            ToAim = _aim.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(ToAim);
+        }
         if (!_flipManager.IsFlipping)
         {
             _rightArm.rotation = Quaternion.LookRotation(ToAim);

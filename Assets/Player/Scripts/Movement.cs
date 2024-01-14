@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private FlipManager _flipManager;
     [SerializeField] private WallConnection _wallConnectionPrefab;
     [SerializeField] private WeaponManager _aim;
+    [SerializeField] private InventoryManager _inventoryManager;
 
     private Vector3 _stickContactPoint;
     private Vector3 _jumpDirection;
@@ -109,24 +110,24 @@ public class Movement : MonoBehaviour
         {
             speedMultiplier = 0;
         }
-        
 
-        _rigidbody.AddForce(transform.right * Speed * speedMultiplier * Input.GetAxis("Horizontal"), ForceMode.VelocityChange);
-
-        if (_wallRun)
+        if (!_inventoryManager.OpenInventory)
         {
-            if (_connection != null)
+            _rigidbody.AddForce(transform.right * Speed * speedMultiplier * Input.GetAxis("Horizontal"), ForceMode.VelocityChange);
+
+            if (_wallRun)
             {
-                _rigidbody.AddForce(0, _wallrunStrenght * Time.fixedDeltaTime * Input.GetAxis("Vertical"), 0, ForceMode.VelocityChange);
-                _connection.Move(_wallrunStrenght * Time.fixedDeltaTime * Input.GetAxis("Vertical"));
+                if (_connection != null)
+                {
+                    _rigidbody.AddForce(0, _wallrunStrenght * Time.fixedDeltaTime * Input.GetAxis("Vertical"), 0, ForceMode.VelocityChange);
+                    _connection.Move(_wallrunStrenght * Time.fixedDeltaTime * Input.GetAxis("Vertical"));
+                }
             }
         }
-
         if (_grounded)
         {
             _rigidbody.AddForce(-_rigidbody.velocity.x * horizontalFriction, 0, 0, ForceMode.VelocityChange);
         }
-
     }
 
 
@@ -158,7 +159,7 @@ public class Movement : MonoBehaviour
             MaxSpeed /= SpeedMultiplier;
         }
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && _touchsThng)
+        if (Input.GetKeyDown(KeyCode.Space) && _touchsThng && !_inventoryManager.OpenInventory)
         {
             if (_connection != null)
             {

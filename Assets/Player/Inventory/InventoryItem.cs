@@ -12,7 +12,7 @@ public class InventoryItem : MonoBehaviour
     public TypeItem TypeItem;
     public bool Hold = false;
 
-    [SerializeField] GameObject SurroundingSpherePrefab;
+    [SerializeField] SurroundingSphere _surroundingSpherePrefab;
 
     private void Awake()
     {
@@ -22,10 +22,25 @@ public class InventoryItem : MonoBehaviour
             player.Items.Add(this);
         }
     }
-
-    private void Update()
+    
+    public void SetSurroundingSphere(bool set)
     {
-        SurroundingSpherePrefab.SetActive(!Hold);
+        _surroundingSpherePrefab.gameObject.SetActive(set);
+    }
+
+    protected virtual void Update()
+    {
+        if (!Hold)
+        {
+            if (_surroundingSpherePrefab.isActiveAndEnabled)
+            {
+                if (_surroundingSpherePrefab.Rigidbody.velocity != Vector3.zero)
+                {
+                    _surroundingSpherePrefab.Rigidbody.isKinematic = true;
+                    _surroundingSpherePrefab.Collider.isTrigger = true;
+                }
+            }
+        }
     }
 }
 

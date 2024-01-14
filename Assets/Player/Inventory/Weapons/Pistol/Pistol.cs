@@ -8,6 +8,7 @@ public class Pistol : Weapon
     [SerializeField] private Transform _bulletSpawner;
     [SerializeField] private ParticleSystem _effect;
     [SerializeField] private GameObject _shot;
+    [SerializeField] private InventoryManager _inventoryManager;
     private FlipManager _flipManager;
     private CameraFollow _camera;
     private float _timer = 999f;
@@ -16,12 +17,19 @@ public class Pistol : Weapon
     {
         _flipManager = FindObjectOfType<FlipManager>();
         _camera = FindObjectOfType<CameraFollow>();
+        _inventoryManager = FindObjectOfType<InventoryManager>();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         _timer += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && _timer >= 1f / ShotsPerSecond/* && !_flipManager.IsFlipping*/ && Hold)
+        if (Input.GetMouseButtonDown(0) 
+            && _timer >= 1f / ShotsPerSecond/*
+          * && !_flipManager.IsFlipping*/ 
+            && Hold
+            && !_inventoryManager.OpenInventory)
         {
             _timer = 0;
             _effect.Play();

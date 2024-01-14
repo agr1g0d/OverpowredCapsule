@@ -32,7 +32,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Fresnel_color
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -60,14 +60,14 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _emission: 9.97
+    - _emission: 6
     - _fullnes: 0.25
-    - _speed: 2
+    - _speed: 0
     - _spherize_strenght: 5
-    - _tex_emission: 20
+    - _tex_emission: 17
     m_Colors:
-    - _Fresnel_color: {r: 0.7339368, g: 0, b: 1, a: 1}
+    - _Fresnel_color: {r: 0.5808262, g: 0.48584908, b: 1, a: 1}
     - _Tex_color: {r: 0.98328555, g: 1, b: 0.7783019, a: 1}
     - _Waves: {r: 5, g: 5, b: 0, a: 0}
-    - _tex_color: {r: 0.994994, g: 0.5518868, b: 1, a: 1}
+    - _tex_color: {r: 0.9645941, g: 0.5529412, b: 1, a: 1}
   m_BuildTextureStacks: []
