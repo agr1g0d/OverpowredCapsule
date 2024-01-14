@@ -118,7 +118,7 @@ Material:
     - _ZWrite: 1
     - _dissolve: 0.1
     - _frensel_power: 2
-    - _glitching: 0.2
+    - _glitching: 0.3
     - _multiplier: 0.54
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

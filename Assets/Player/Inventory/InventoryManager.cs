@@ -11,8 +11,10 @@ public class InventoryManager : MonoBehaviour
     public List<Potion> Potions = new List<Potion>();
     public List<GameResource> Resources = new List<GameResource>();
     public Preview Preview;
+    public float ChangedCellScale = 0.8f;
     public ItemEvent OnItemPickedEvent = new ItemEvent();
 
+    [SerializeField] private Player _player;
     [SerializeField] Transform _pocket; //parent for all consumables, potions and resources
     [SerializeField] RectTransform _weaponsParent;
     [SerializeField] RectTransform _consumablesParent;
@@ -51,14 +53,17 @@ public class InventoryManager : MonoBehaviour
 
     void ItemPicked(InventoryItem item)
     {
-        AddItem(item);
-        item.Hold = true;
-        item.SetSurroundingSphere(false);
-        UpdateItems(item.TypeItem);
+        if (AddItem(item))
+        {
+            item.Hold = true;
+            item.SetSurroundingSphere(false);
+            UpdateItems(item.TypeItem);
+            _player.Items.Remove(item);
+        }
     }
 
 
-    public void AddItem(InventoryItem item)
+    public bool AddItem(InventoryItem item)
     {
         if (item.gameObject.TryGetComponent(out Weapon w))
         {
@@ -66,31 +71,40 @@ public class InventoryManager : MonoBehaviour
             {
                 Weapons.Add(w);
                 _weaponManager.UpdateWeapons();
+                return true;
             }
         }
         else if (item.gameObject.TryGetComponent(out Consumable c))
         {
-            if (Weapons.Count < 3)
+            if (Consumables.Count < 8)
             {
                 Consumables.Add(c);
+                c.PickUp(_pocket);
+                c.gameObject.SetActive(false);
+                return true;
             }
         }
         else if (item.gameObject.TryGetComponent(out Potion p))
         {
-            if (Weapons.Count < 3)
+            if (Potions.Count < 8)
             {
                 Potions.Add(p);
                 p.PickUp(_pocket);
                 p.gameObject.SetActive(false);
+                return true;
             }
         }
         else if (item.gameObject.TryGetComponent(out GameResource r))
         {
-            if (Weapons.Count < 3)
+            if (Resources.Count < 20)
             {
                 Resources.Add(r);
+                r.PickUp(_pocket);
+                r.gameObject.SetActive(false);
+                return true;
             }
         }
+        return false;
     }
 
     public void UpdateItems(TypeItem type)

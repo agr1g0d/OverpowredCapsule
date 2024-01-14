@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
     public GameObject PreviewPrefab;
     public GameObject InventoryIconPrefab;
-    public List<Property> properties;
+    public List<Property> Properties;
+    public List<Button> Buttons;
     public string Name;
     public string Description;
     public TypeItem TypeItem;
@@ -30,6 +32,10 @@ public class InventoryItem : MonoBehaviour
 
     protected virtual void Update()
     {
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
         if (!Hold)
         {
             if (_surroundingSpherePrefab.isActiveAndEnabled)
@@ -41,6 +47,14 @@ public class InventoryItem : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PickUp(Transform parent)
+    {
+        transform.SetParent(parent);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 }
 

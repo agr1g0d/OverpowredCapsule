@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1292840589137388498}
   - component: {fileID: 7220145895957043078}
   - component: {fileID: 2510364317293617072}
+  - component: {fileID: 7226859558276351037}
   m_Layer: 5
   m_Name: PistolIconPrefab
   m_TagString: Untagged
@@ -75,3 +76,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7226859558276351037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7841144298592217240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17534e9daf5c3974b93d44adb3a3cf43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isWeaponCell: 1

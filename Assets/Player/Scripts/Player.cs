@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
                     if (Input.GetKey(KeyCode.E))
                     {
                         _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
-                        Items.RemoveAt(i);
                     }
                 }
             }

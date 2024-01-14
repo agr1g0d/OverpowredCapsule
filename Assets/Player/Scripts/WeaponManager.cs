@@ -78,10 +78,7 @@ public class WeaponManager : MonoBehaviour
         for (int i = 0; i < _inventoryManager.Weapons.Count; i++)
         {
             _weapons.Add(_inventoryManager.Weapons[i]);
-            _inventoryManager.Weapons[i].transform.SetParent(_rightHand);
-            _inventoryManager.Weapons[i].transform.localPosition = Vector3.zero;
-            _inventoryManager.Weapons[i].transform.localRotation = Quaternion.identity;
-
+            _inventoryManager.Weapons[i].PickUp(_rightHand);
             if (i != _currentWeapon)
             {
                 _weapons[i].gameObject.SetActive(false);
