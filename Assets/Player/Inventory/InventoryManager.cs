@@ -58,6 +58,7 @@ public class InventoryManager : MonoBehaviour
             item.Hold = true;
             item.SetSurroundingSphere(false);
             UpdateItems(item.TypeItem);
+            item.InventoryIcon.SetItem(item);
             _player.Items.Remove(item);
         }
     }
@@ -116,9 +117,9 @@ public class InventoryManager : MonoBehaviour
                 {
                     Destroy(_weaponsParent.GetChild(i).gameObject);
                 }
-                foreach (var item in Weapons)
+                for (int i = 0; i < Weapons.Count; i++)
                 {
-                    Instantiate(item.InventoryIconPrefab, _weaponsParent);
+                    Weapons[i].InventoryIcon = Instantiate(Weapons[i].InventoryIconPrefab, _weaponsParent);
                 }
                 break;
             case TypeItem.consumable:
@@ -126,9 +127,9 @@ public class InventoryManager : MonoBehaviour
                 {
                     Destroy(_consumablesParent.GetChild(i).gameObject);
                 }
-                foreach (var item in Consumables)
+                for (int i = 0; i < Consumables.Count; i++)
                 {
-                    Instantiate(item.InventoryIconPrefab, _consumablesParent);
+                    Consumables[i].InventoryIcon = Instantiate(Consumables[i].InventoryIconPrefab, _consumablesParent);
                 }
                 break;
             case TypeItem.potion:
@@ -136,9 +137,9 @@ public class InventoryManager : MonoBehaviour
                 {
                     Destroy(_potionsParent.GetChild(i).gameObject);
                 }
-                foreach (var item in Potions)
+                for (int i = 0; i < Potions.Count; i++)
                 {
-                    Instantiate(item.InventoryIconPrefab, _potionsParent);
+                    Potions[i].InventoryIcon = Instantiate(Potions[i].InventoryIconPrefab, _potionsParent);
                 }
                 break;
             case TypeItem.resource:
@@ -146,9 +147,9 @@ public class InventoryManager : MonoBehaviour
                 {
                     Destroy(_resourcesParent.GetChild(i).gameObject);
                 }
-                foreach (var item in Resources)
+                for (int i = 0; i < Resources.Count; i++)
                 {
-                    Instantiate(item.InventoryIconPrefab, _resourcesParent);
+                    Resources[i].InventoryIcon = Instantiate(Resources[i].InventoryIconPrefab, _resourcesParent);
                 }
                 break;
         }

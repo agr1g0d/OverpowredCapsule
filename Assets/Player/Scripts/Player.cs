@@ -15,9 +15,11 @@ public class Player : MonoBehaviour
     [SerializeField] ParticleSystem _electroEffect;
     [SerializeField] CountHP _countHP;
     [SerializeField] InventoryManager _inventoryManager;
+    [SerializeField] LineRenderer _itemPointerLine;
 
     private PlayerTakesDamageUnityEvent _onTakeDamagePlayer;
     private bool _invulnerable;
+    private bool _turnOnItemPointer;
 
     private void Start()
     {
@@ -27,25 +29,44 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        Vector3 nearestItemPosition = Vector3.one * (PickUpDistance + 1);
         for (int i = 0;  i < Items.Count; i++)
         {
-            if (Items[i].enabled)
+            if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
             {
-                if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
+                if (Vector3.Distance(transform.position, Items[i].transform.position) < Vector3.Distance(transform.position, nearestItemPosition))
                 {
-                    if (Input.GetKey(KeyCode.E))
-                    {
-                        _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
-                    }
+                    nearestItemPosition = Items[i].transform.position;
+                }
+                if (!_turnOnItemPointer)
+                {
+                    _turnOnItemPointer = true;
+                    _itemPointerLine.gameObject.SetActive(true);
+                }
+                
+                if (Input.GetKey(KeyCode.E) && Items[i] != null)
+                {
+                    _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
+                }
+            } else
+            {
+                if (_turnOnItemPointer)
+                {
+                    _turnOnItemPointer = false;
+                    _itemPointerLine.gameObject.SetActive(false);
                 }
             }
         }
-
-
-        foreach (InventoryItem item in Items)
+        if (Items.Count == 0)
         {
-            
+            _turnOnItemPointer = false;
+            _itemPointerLine.gameObject.SetActive(false);
+        } else
+        {
+            _itemPointerLine.SetPosition(0, transform.position);
+            _itemPointerLine.SetPosition(1, nearestItemPosition);
         }
+
     }
 
     private void damage(float cooldown)

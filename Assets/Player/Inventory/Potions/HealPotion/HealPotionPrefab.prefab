@@ -105,8 +105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PreviewPrefab: {fileID: 1752535297109324095, guid: 98cb808865515f34a87b28f6698dd8d8, type: 3}
-  InventoryIconPrefab: {fileID: 7841144298592217240, guid: 9cb96f83d35f5994abec2161b7bf8636, type: 3}
-  properties: []
+  InventoryIconPrefab: {fileID: -5022984577989229875, guid: 9cb96f83d35f5994abec2161b7bf8636, type: 3}
+  Properties: []
+  Buttons: []
   Name: "\u0417\u0435\u043B\u044C\u0435 \u0438\u0441\u0446\u0435\u043B\u0435\u043D\u0438\u044F"
   Description: "\u0445\u0438\u043B\u043A\u0430"
   TypeItem: 2

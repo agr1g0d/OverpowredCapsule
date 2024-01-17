@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,8 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour
 {
     public GameObject PreviewPrefab;
-    public GameObject InventoryIconPrefab;
+    public Icon InventoryIconPrefab;
+    [NonSerialized] public Icon InventoryIcon;
     public List<Property> Properties;
     public List<Button> Buttons;
     public string Name;
@@ -22,6 +24,7 @@ public class InventoryItem : MonoBehaviour
         if (player != null)
         {
             player.Items.Add(this);
+            print(gameObject);
         }
     }
     

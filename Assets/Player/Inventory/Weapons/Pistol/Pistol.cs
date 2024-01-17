@@ -8,7 +8,7 @@ public class Pistol : Weapon
     [SerializeField] private Transform _bulletSpawner;
     [SerializeField] private ParticleSystem _effect;
     [SerializeField] private GameObject _shot;
-    [SerializeField] private InventoryManager _inventoryManager;
+    private InventoryManager _inventoryManager;
     private FlipManager _flipManager;
     private CameraFollow _camera;
     private float _timer = 999f;

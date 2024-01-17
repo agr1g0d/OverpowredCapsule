@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class Icon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] bool _isWeaponCell;
     private InventoryManager _inventoryManager;
+    private Preview _preview;
+    private InventoryItem _item;
 
     private void Start()
     {
         _inventoryManager = FindObjectOfType<InventoryManager>();
+        _preview = FindObjectOfType<Preview>();
+    }
+
+    public void SetItem(InventoryItem item)
+    {
+        _item = item;
+        print(_item);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print(gameObject.name);
+        _preview.ChangeObject(_item);
+        
     }
 
     public void OnPointerExit(PointerEventData eventData) 
     {
-        if (!_isWeaponCell)
-        {
-            transform.localScale = Vector3.one;
-        }
+        transform.localScale /= _inventoryManager.ChangedCellScale;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_isWeaponCell)
-        {
-            transform.localScale = Vector3.one * _inventoryManager.ChangedCellScale;
-        }
+        transform.localScale *= _inventoryManager.ChangedCellScale;
     }
 }

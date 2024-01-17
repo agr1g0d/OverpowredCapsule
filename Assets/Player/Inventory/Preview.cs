@@ -23,12 +23,18 @@ public class Preview : MonoBehaviour
 
     void Update()
     {
-        ObjectPrefab.transform.eulerAngles += _rotationPerSecond * Time.deltaTime * Vector3.up;
+        _object.transform.eulerAngles += _rotationPerSecond * Time.deltaTime * Vector3.up;
     }
 
     public void ChangeObject(InventoryItem item) 
     {
-        _object = Instantiate(item.PreviewPrefab, transform);
+        if (item == null)
+        {
+            return;
+        }
+        print("done");
+        Destroy(_object);
+        _object = Instantiate(item.PreviewPrefab.gameObject, transform);
 
         foreach (Transform child in _buttonsParent)
         {
