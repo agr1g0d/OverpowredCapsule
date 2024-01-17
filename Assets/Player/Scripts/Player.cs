@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     private PlayerTakesDamageUnityEvent _onTakeDamagePlayer;
     private bool _invulnerable;
+    private bool _needTurnOnItemPointer;
     private bool _turnOnItemPointer;
 
     private void Start()
@@ -34,39 +35,33 @@ public class Player : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
             {
+                _needTurnOnItemPointer = true;
                 if (Vector3.Distance(transform.position, Items[i].transform.position) < Vector3.Distance(transform.position, nearestItemPosition))
                 {
                     nearestItemPosition = Items[i].transform.position;
                 }
-                if (!_turnOnItemPointer)
-                {
-                    _turnOnItemPointer = true;
-                    _itemPointerLine.gameObject.SetActive(true);
-                }
-                
                 if (Input.GetKey(KeyCode.E) && Items[i] != null)
                 {
                     _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
                 }
-            } else
-            {
-                if (_turnOnItemPointer)
+                if (!_turnOnItemPointer)
                 {
-                    _turnOnItemPointer = false;
-                    _itemPointerLine.gameObject.SetActive(false);
+                    _needTurnOnItemPointer = true;
+                    _itemPointerLine.gameObject.SetActive(true);
                 }
-            }
+            } 
         }
-        if (Items.Count == 0)
+        if (Items.Count == 0 || !_needTurnOnItemPointer)
         {
             _turnOnItemPointer = false;
             _itemPointerLine.gameObject.SetActive(false);
-        } else
+        }
+        else
         {
             _itemPointerLine.SetPosition(0, transform.position);
             _itemPointerLine.SetPosition(1, nearestItemPosition);
         }
-
+        _needTurnOnItemPointer = false;
     }
 
     private void damage(float cooldown)

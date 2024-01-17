@@ -18,9 +18,9 @@ public class InventoryItem : MonoBehaviour
 
     [SerializeField] SurroundingSphere _surroundingSpherePrefab;
 
-    private void Awake()
+    protected virtual void Start()
     {
-        Player player = FindObjectOfType<Player>().GetComponent<Player>();
+        Player player = FindObjectOfType<Player>();
         if (player != null)
         {
             player.Items.Add(this);

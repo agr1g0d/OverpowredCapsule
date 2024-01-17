@@ -13,8 +13,9 @@ public class Pistol : Weapon
     private CameraFollow _camera;
     private float _timer = 999f;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _flipManager = FindObjectOfType<FlipManager>();
         _camera = FindObjectOfType<CameraFollow>();
         _inventoryManager = FindObjectOfType<InventoryManager>();
