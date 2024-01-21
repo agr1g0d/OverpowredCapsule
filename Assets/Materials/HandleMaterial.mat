@@ -128,7 +128,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _noise_scale: 100
-    - _normal_strenght: 0.005
+    - _normal_strenght: 0.00125
     - _smoothness: 0.2
     m_Colors:
     - _BaseColor: {r: 0.020067248, g: 0.020067248, b: 0.020067248, a: 1}

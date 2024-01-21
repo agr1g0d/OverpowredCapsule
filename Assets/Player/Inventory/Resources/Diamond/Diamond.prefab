@@ -196,7 +196,9 @@ MonoBehaviour:
   PreviewPrefab: {fileID: 8983439394027245532, guid: e7868693eeca9134db99d32143c57a57, type: 3}
   InventoryIconPrefab: {fileID: -5183137428743272469, guid: 93da1716b2af0a34ea59b3c29fd2d467, type: 3}
   Properties: []
-  Buttons: []
+  Buttons:
+  - {fileID: 6393789999394131872, guid: 2175916ac7d29a748855981b6c115043, type: 3}
+  - {fileID: 3891302885625359497, guid: 9fa1e38fc9b305d4caefd8755c48368b, type: 3}
   Name: "\u0411\u0440\u0438\u043B\u043B\u0438\u0430\u043D\u0442"
   Description: "\u0414\u0440\u0430\u0433\u043E\u0446\u0435\u043D\u043D\u044B\u0439
     \u043A\u0430\u043C\u0435\u043D\u044C, \u043A\u043E\u0442\u043E\u0440\u044B\u0439

@@ -27,10 +27,10 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        /*UpdateItems(TypeItem.weapon);
+        UpdateItems(TypeItem.weapon);
         UpdateItems(TypeItem.consumable);
         UpdateItems(TypeItem.potion);
-        UpdateItems(TypeItem.resource);*/
+        UpdateItems(TypeItem.resource);
         OnItemPickedEvent.AddListener(ItemPicked);
     }
 
@@ -57,7 +57,7 @@ public class InventoryManager : MonoBehaviour
         {
             item.Hold = true;
             item.SetSurroundingSphere(false);
-            UpdateItems(item.TypeItem);
+            AddIcon(item);
             item.InventoryIcon.SetItem(item);
             _player.Items.Remove(item);
         }
@@ -106,6 +106,50 @@ public class InventoryManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void AddIcon(InventoryItem item)
+    {
+        switch (item.TypeItem)
+        {
+            case TypeItem.weapon:
+                item.InventoryIcon = Instantiate(item.InventoryIconPrefab, _weaponsParent);
+                break;
+
+            case TypeItem.consumable:
+                item.InventoryIcon = Instantiate(item.InventoryIconPrefab, _consumablesParent);
+                break;
+
+            case TypeItem.potion:
+                item.InventoryIcon = Instantiate(item.InventoryIconPrefab, _potionsParent);
+                break;
+
+            case TypeItem.resource:
+                item.InventoryIcon = Instantiate(item.InventoryIconPrefab, _resourcesParent);
+                break;
+        }
+    }
+
+    public void RemoveIcon(InventoryItem item, int index) 
+    {
+        switch (item.TypeItem)
+        {
+            case TypeItem.weapon:
+                Destroy(_weaponsParent.GetChild(index));
+                break;
+
+            case TypeItem.consumable:
+                Destroy(_consumablesParent.GetChild(index));
+                break;
+
+            case TypeItem.potion:
+                Destroy(_potionsParent.GetChild(index));
+                break;
+
+            case TypeItem.resource:
+                Destroy(_resourcesParent.GetChild(index));
+                break;
+        }
     }
 
     public void UpdateItems(TypeItem type)

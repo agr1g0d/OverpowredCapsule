@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8642943334977232700}
   - component: {fileID: -5183137428743272469}
   m_Layer: 5
-  m_Name: RubyIcon
+  m_Name: EnergyCrystallIconPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 64b2d15ee8861c7419f9bd33f10be882, type: 3}
+  m_Sprite: {fileID: 21300000, guid: acbb72264af9a1942b7fc920a3811290, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

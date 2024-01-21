@@ -28,11 +28,11 @@ public class Preview : MonoBehaviour
 
     public void ChangeObject(InventoryItem item) 
     {
-        /*if (item == null)
+        if (item == null)
         {
+            print(null);
             return;
-        }*/
-        print("done");
+        }
         Destroy(_object);
         _object = Instantiate(item.PreviewPrefab.gameObject, transform);
 

@@ -118,7 +118,7 @@ Material:
     - _ZWrite: 1
     - _dissolve: 0.3
     - _frensel_power: 2
-    - _glitching: 0.05
+    - _glitching: 0.02
     - _multiplier: 0.54
     - _noise_scale: 15
     m_Colors:
