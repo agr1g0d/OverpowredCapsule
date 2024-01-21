@@ -36,19 +36,21 @@ public class Player : MonoBehaviour
             if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
             {
                 _needTurnOnItemPointer = true;
-                if (Vector3.Distance(transform.position, Items[i].transform.position) < Vector3.Distance(transform.position, nearestItemPosition))
-                {
-                    nearestItemPosition = Items[i].transform.position;
-                }
-                if (Input.GetKey(KeyCode.E) && Items[i] != null)
-                {
-                    _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
-                }
                 if (!_turnOnItemPointer)
                 {
                     _needTurnOnItemPointer = true;
                     _itemPointerLine.gameObject.SetActive(true);
                 }
+                if (Vector3.Distance(transform.position, Items[i].transform.position) < Vector3.Distance(transform.position, nearestItemPosition))
+                {
+                    nearestItemPosition = Items[i].transform.position;
+                }
+                if (Input.GetKeyDown(KeyCode.E) && Items[i] != null)
+                {
+                    _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
+                    break;
+                }
+                
             } 
         }
         if (Items.Count == 0 || !_needTurnOnItemPointer)
