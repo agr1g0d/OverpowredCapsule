@@ -66,6 +66,19 @@ public class Player : MonoBehaviour
         _needTurnOnItemPointer = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.attachedRigidbody != null && other.attachedRigidbody.TryGetComponent(out InventoryItem item) ) 
+        {
+            if (item == null)
+            {
+                print(null);
+                return;
+            }
+            _inventoryManager.OnItemPickedEvent.Invoke(item);
+        }
+    }
+
     private void damage(float cooldown)
     {
         _damageScreen.StartBlink();

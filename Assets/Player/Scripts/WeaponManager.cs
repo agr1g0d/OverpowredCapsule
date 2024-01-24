@@ -78,7 +78,7 @@ public class WeaponManager : MonoBehaviour
         for (int i = 0; i < _inventoryManager.Weapons.Count; i++)
         {
             _weapons.Add(_inventoryManager.Weapons[i]);
-            _inventoryManager.Weapons[i].PickUp(_rightHand);
+            _inventoryManager.Weapons[i].PickUp(_rightHand, false);
             if (i != _currentWeapon)
             {
                 _weapons[i].gameObject.SetActive(false);

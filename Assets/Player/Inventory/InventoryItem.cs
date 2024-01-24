@@ -14,8 +14,9 @@ public class InventoryItem : MonoBehaviour
     public string Name;
     public string Description;
     public TypeItem TypeItem;
-    public bool Hold = false;
+    [NonSerialized] public bool Hold = false;
 
+    [SerializeField] static float _disapearingTime = 0.07f;
     [SerializeField] SurroundingSphere _surroundingSpherePrefab;
 
     protected virtual void Start()
@@ -52,12 +53,29 @@ public class InventoryItem : MonoBehaviour
         }
     }
 
-    public void PickUp(Transform parent)
+    public void PickUp(Transform parent, bool shooldTurnOff)
     {
+        StartCoroutine(SmoothDisapearing(parent, shooldTurnOff));
+    }
+
+    IEnumerator SmoothDisapearing(Transform parent, bool shooldTurnOff)
+    {
+        for (float f = 0; f < _disapearingTime; f += Time.deltaTime)
+        {
+            transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.1f, f);
+            yield return null;
+        }
         transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        transform.localScale = Vector3.one;
+        SetSurroundingSphere(false);
+        if (shooldTurnOff)
+        {
+            gameObject.SetActive(false);
+        }
+        yield return null;
     }
 }
 

@@ -56,7 +56,6 @@ public class InventoryManager : MonoBehaviour
         if (AddItem(item))
         {
             item.Hold = true;
-            item.SetSurroundingSphere(false);
             AddIcon(item);
             item.InventoryIcon.SetItem(item);
             _player.Items.Remove(item);
@@ -80,8 +79,7 @@ public class InventoryManager : MonoBehaviour
             if (Consumables.Count < 8)
             {
                 Consumables.Add(c);
-                c.PickUp(_pocket);
-                c.gameObject.SetActive(false);
+                c.PickUp(_pocket, true);
                 return true;
             }
         }
@@ -90,8 +88,7 @@ public class InventoryManager : MonoBehaviour
             if (Potions.Count < 8)
             {
                 Potions.Add(p);
-                p.PickUp(_pocket);
-                p.gameObject.SetActive(false);
+                p.PickUp(_pocket, true);
                 return true;
             }
         }
@@ -100,8 +97,7 @@ public class InventoryManager : MonoBehaviour
             if (Resources.Count < 20)
             {
                 Resources.Add(r);
-                r.PickUp(_pocket);
-                r.gameObject.SetActive(false);
+                r.PickUp(_pocket, true);
                 return true;
             }
         }
