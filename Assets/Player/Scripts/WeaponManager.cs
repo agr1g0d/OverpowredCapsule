@@ -6,6 +6,10 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     public Vector3 ToAim;
+    public Transform RightArm;
+    public Transform LeftArm;
+    public Transform RightHand;
+    public Transform LeftHand;
 
     private List<Weapon> _weapons = new List<Weapon>();
     private int _currentWeapon = 0;
@@ -13,10 +17,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Camera _camera;
     [SerializeField] Transform _aim;
     [SerializeField] Transform _playerTransform;
-    [SerializeField] Transform _rightArm;
-    [SerializeField] Transform _leftArm;
-    [SerializeField] Transform _rightHand;
-    [SerializeField] Transform _leftHand;
     [SerializeField] Vector3 _defoultArmEulers;
     [SerializeField] float _lerpCoeff;
     [SerializeField] FlipManager _flipManager;
@@ -40,22 +40,18 @@ public class WeaponManager : MonoBehaviour
             ToAim = _aim.position - transform.position;
             transform.rotation = Quaternion.LookRotation(ToAim);
         }
-        if (!_flipManager.IsFlipping)
-        {
-            _rightArm.rotation = Quaternion.LookRotation(ToAim);
-        } else
-        {
-            _rightArm.eulerAngles = _playerTransform.eulerAngles;
-        }
+
+        bool rotateArm = true;
+
         if (_weapons.Count > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Keypad1) && _currentWeapon != 0)
+            if (Input.GetKeyDown(KeyCode.Alpha1) && _currentWeapon != 0)
             {
                 ChangeWeapon(0);
-            } else if (Input.GetKeyDown(KeyCode.Keypad2) && _currentWeapon != 1)
+            } else if (Input.GetKeyDown(KeyCode.Alpha2) && _currentWeapon != 1)
             {
                 ChangeWeapon(1);
-            } else if (Input.GetKeyDown(KeyCode.Keypad3) && _currentWeapon != 2)
+            } else if (Input.GetKeyDown(KeyCode.Alpha3) && _currentWeapon != 2)
             {
                 ChangeWeapon(2);
             }
@@ -65,7 +61,35 @@ public class WeaponManager : MonoBehaviour
             }
             else if (_weapons[_currentWeapon].TypeWeapon == TypeWeapon.knife)
             {
+                rotateArm = false;
             }
+        }
+        if (!_flipManager.IsFlipping)
+        {
+            if (rotateArm)
+            {
+                RightArm.rotation = Quaternion.LookRotation(ToAim);
+            } else
+            {
+                RightArm.localEulerAngles = _playerTransform.localEulerAngles.y * Vector3.up; ;
+            }
+        }
+        else
+        {
+            RightArm.eulerAngles = _playerTransform.eulerAngles;
+        }
+    }
+
+    public void AddWeapon(Weapon weapon)
+    {
+        _weapons.Add(weapon);
+
+        if (_weapons.IndexOf(weapon) != _currentWeapon)
+        {
+            weapon.PickUp(RightHand, true);
+        } else
+        {
+            weapon.PickUp(RightHand, false);
         }
     }
 
@@ -78,7 +102,7 @@ public class WeaponManager : MonoBehaviour
         for (int i = 0; i < _inventoryManager.Weapons.Count; i++)
         {
             _weapons.Add(_inventoryManager.Weapons[i]);
-            _inventoryManager.Weapons[i].PickUp(_rightHand, false);
+            _inventoryManager.Weapons[i].PickUp(RightHand, false);
             if (i != _currentWeapon)
             {
                 _weapons[i].gameObject.SetActive(false);

@@ -118,7 +118,6 @@ MonoBehaviour:
     \u043F\u043E\u0434\u043B\u0435\u0447\u0438\u0442 \u0438 \u0443\u043B\u0443\u0447\u0448\u0438\u0442
     \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435."
   TypeItem: 2
-  Hold: 0
   _surroundingSpherePrefab: {fileID: 9216924753245762083}
 --- !u!54 &406943542292257477
 Rigidbody:
@@ -164,18 +163,6 @@ PrefabInstance:
       value: SphereSur
       objectReference: {fileID: 0}
     - target: {fileID: 5747990317198167914, guid: 99132a17c9a241e49889a48a0a7f0fae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747990317198167914, guid: 99132a17c9a241e49889a48a0a7f0fae, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747990317198167914, guid: 99132a17c9a241e49889a48a0a7f0fae, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747990317198167914, guid: 99132a17c9a241e49889a48a0a7f0fae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -214,10 +201,6 @@ PrefabInstance:
     - target: {fileID: 5747990317198167914, guid: 99132a17c9a241e49889a48a0a7f0fae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747990317198167914, guid: 99132a17c9a241e49889a48a0a7f0fae, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

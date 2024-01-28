@@ -27,10 +27,23 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateItems(TypeItem.weapon);
-        UpdateItems(TypeItem.consumable);
-        UpdateItems(TypeItem.potion);
-        UpdateItems(TypeItem.resource);
+        foreach (var weapon in Weapons)
+        {
+            AddIcon(weapon);
+        }
+        foreach (var consumable in Consumables)
+        {
+            AddIcon(consumable);
+        }
+        foreach (var potion in Potions)
+        {
+            AddIcon(potion);
+        }
+        foreach (var resource in Resources)
+        {
+            AddIcon(resource);
+        }
+
         OnItemPickedEvent.AddListener(ItemPicked);
     }
 
@@ -70,7 +83,7 @@ public class InventoryManager : MonoBehaviour
             if (Weapons.Count < 3)
             {
                 Weapons.Add(w);
-                _weaponManager.UpdateWeapons();
+                _weaponManager.AddWeapon(w);
                 return true;
             }
         }
@@ -148,52 +161,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void UpdateItems(TypeItem type)
-    {
-        switch (type)
-        {
-            case TypeItem.weapon:
-                for (int i = 0; i < _weaponsParent.childCount; i++)
-                {
-                    Destroy(_weaponsParent.GetChild(i).gameObject);
-                }
-                for (int i = 0; i < Weapons.Count; i++)
-                {
-                    Weapons[i].InventoryIcon = Instantiate(Weapons[i].InventoryIconPrefab, _weaponsParent);
-                }
-                break;
-            case TypeItem.consumable:
-                for (int i = 0; i < _consumablesParent.childCount; i++)
-                {
-                    Destroy(_consumablesParent.GetChild(i).gameObject);
-                }
-                for (int i = 0; i < Consumables.Count; i++)
-                {
-                    Consumables[i].InventoryIcon = Instantiate(Consumables[i].InventoryIconPrefab, _consumablesParent);
-                }
-                break;
-            case TypeItem.potion:
-                for (int i = 0; i < _potionsParent.childCount; i++)
-                {
-                    Destroy(_potionsParent.GetChild(i).gameObject);
-                }
-                for (int i = 0; i < Potions.Count; i++)
-                {
-                    Potions[i].InventoryIcon = Instantiate(Potions[i].InventoryIconPrefab, _potionsParent);
-                }
-                break;
-            case TypeItem.resource:
-                for (int i = 0; i < _resourcesParent.childCount; i++)
-                {
-                    Destroy(_resourcesParent.GetChild(i).gameObject);
-                }
-                for (int i = 0; i < Resources.Count; i++)
-                {
-                    Resources[i].InventoryIcon = Instantiate(Resources[i].InventoryIconPrefab, _resourcesParent);
-                }
-                break;
-        }
-    }
+
 
 }
 

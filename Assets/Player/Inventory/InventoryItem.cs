@@ -75,7 +75,6 @@ public class InventoryItem : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        yield return null;
     }
 }
 

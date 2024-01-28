@@ -30,40 +30,48 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Vector3 nearestItemPosition = Vector3.one * (PickUpDistance + 1);
-        for (int i = 0;  i < Items.Count; i++)
+        if (Items.Count != 0)
         {
-            if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
+            InventoryItem nearestItem = Items[0];
+            for (int i = 0; i < Items.Count; i++)
             {
-                _needTurnOnItemPointer = true;
-                if (!_turnOnItemPointer)
+                if (Vector3.Distance(transform.position, Items[i].transform.position) < PickUpDistance)
                 {
                     _needTurnOnItemPointer = true;
-                    _itemPointerLine.gameObject.SetActive(true);
+                    if (!_turnOnItemPointer)
+                    {
+                        _needTurnOnItemPointer = true;
+                        _itemPointerLine.gameObject.SetActive(true);
+                    }
+                    if (Vector3.Distance(transform.position, Items[i].transform.position) < Vector3.Distance(transform.position, nearestItem.transform.position))
+                    {
+                        nearestItem = Items[i];
+                    }
                 }
-                if (Vector3.Distance(transform.position, Items[i].transform.position) < Vector3.Distance(transform.position, nearestItemPosition))
+            }
+
+            if (Vector3.Distance(transform.position, nearestItem.transform.position) < PickUpDistance)
+            {
+                if (Input.GetKeyDown(KeyCode.E) && nearestItem != null)
                 {
-                    nearestItemPosition = Items[i].transform.position;
+                    _inventoryManager.OnItemPickedEvent.Invoke(nearestItem);
                 }
-                if (Input.GetKeyDown(KeyCode.E) && Items[i] != null)
-                {
-                    _inventoryManager.OnItemPickedEvent.Invoke(Items[i]);
-                    break;
-                }
-                
-            } 
-        }
-        if (Items.Count == 0 || !_needTurnOnItemPointer)
+                _itemPointerLine.SetPosition(0, transform.position);
+                _itemPointerLine.SetPosition(1, nearestItem.transform.position);
+            }
+
+            if (!_needTurnOnItemPointer)
+            {
+                _turnOnItemPointer = false;
+                _itemPointerLine.gameObject.SetActive(false);
+            }
+
+            _needTurnOnItemPointer = false;
+        } else if (Items.Count == 0)
         {
             _turnOnItemPointer = false;
             _itemPointerLine.gameObject.SetActive(false);
         }
-        else
-        {
-            _itemPointerLine.SetPosition(0, transform.position);
-            _itemPointerLine.SetPosition(1, nearestItemPosition);
-        }
-        _needTurnOnItemPointer = false;
     }
 
     private void OnTriggerEnter(Collider other)

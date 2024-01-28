@@ -12,22 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResourcesSurroundingSphere
       objectReference: {fileID: 0}
-    - target: {fileID: 5300302455746095976, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.91
-      objectReference: {fileID: 0}
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -42,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalRotation.y
@@ -58,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -67,10 +51,6 @@ PrefabInstance:
     - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5454093070729728299, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7106650200116209712, guid: 156f3016eb66b1c40a96452727f42b99, type: 3}
       propertyPath: Rigidbody
@@ -208,7 +188,6 @@ MonoBehaviour:
     \u0441\u0443\u043C\u043C\u0443 \u0438\u043B\u0438 \u043F\u0440\u0435\u0434\u043C\u0435\u0442.
     \u0410 \u0435\u0449\u0435 \u043E\u043D \u043E\u0447\u0435\u043D\u044C \u043A\u0440\u0430\u0441\u0438\u0432\u044B\u0439!"
   TypeItem: 3
-  Hold: 0
   _surroundingSpherePrefab: {fileID: 8919522522258840545}
 --- !u!54 &3373524773835667994
 Rigidbody:
