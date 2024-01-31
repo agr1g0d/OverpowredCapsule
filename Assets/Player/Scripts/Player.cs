@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class Player : MonoBehaviour
     public float PickUpDistance = 2f;
     public List<InventoryItem> Items;
 
+    [SerializeField] bool _pickUpOnTouch = true;
     [SerializeField] DamageScreen _damageScreen;
     [SerializeField] ParticleSystem _electroEffect;
     [SerializeField] CountHP _countHP;
     [SerializeField] InventoryManager _inventoryManager;
     [SerializeField] LineRenderer _itemPointerLine;
+    [SerializeField] Toggle _pickUpToggle;
 
     private PlayerTakesDamageUnityEvent _onTakeDamagePlayer;
     private bool _invulnerable;
@@ -26,10 +29,17 @@ public class Player : MonoBehaviour
     {
         _onTakeDamagePlayer = new PlayerTakesDamageUnityEvent();
         _onTakeDamagePlayer.AddListener(damage);
+        _pickUpToggle.isOn = _pickUpOnTouch;
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            _pickUpOnTouch = !_pickUpOnTouch;
+            _pickUpToggle.isOn = _pickUpOnTouch;
+        }
+
         if (Items.Count != 0)
         {
             InventoryItem nearestItem = Items[0];
@@ -76,7 +86,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.attachedRigidbody != null && other.attachedRigidbody.TryGetComponent(out InventoryItem item) ) 
+        if (other.attachedRigidbody != null 
+            && other.attachedRigidbody.TryGetComponent(out InventoryItem item)
+            && _pickUpOnTouch) 
         {
             if (item == null)
             {

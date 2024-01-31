@@ -158,6 +158,8 @@ MonoBehaviour:
   TypeWeapon: 0
   ShotsPerSecond: 6
   Damage: 5
+  RightArmEulerAngle: {x: 0, y: 0, z: 0}
+  LeftArmEulerAngle: {x: 0, y: 180, z: 0}
   Power: 500
   _bulletSpawner: {fileID: 8317477639083628075}
   _effect: {fileID: 6221335797319141097}

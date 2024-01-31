@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5674214551306651744}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.011, y: 0.464, z: 0}
+  m_LocalPosition: {x: -0.024948854, y: 0.464, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4920,7 +4920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3439316263592033860, guid: 424dc6bb82b837748a1ed52b5dd046d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.035948854
       objectReference: {fileID: 0}
     - target: {fileID: 3439316263592033860, guid: 424dc6bb82b837748a1ed52b5dd046d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5035,6 +5035,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4694a246c164b8344b7954c62c2aaede, type: 2}
+    - target: {fileID: -7493596028755563170, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04594154
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.045
+      objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -5043,6 +5051,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 52931450b77868244808eca7b319f3cd, type: 2}
+    - target: {fileID: -4292154010595695564, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04364289
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.022195041
+      objectReference: {fileID: 0}
+    - target: {fileID: -2484921068739079471, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.022195041
+      objectReference: {fileID: 0}
     - target: {fileID: -1439730007547781893, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5054,6 +5074,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
       propertyPath: m_Name
       value: Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316992658331686828, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.022195041
       objectReference: {fileID: 0}
     - target: {fileID: 7071182760956848314, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5137,6 +5161,10 @@ MonoBehaviour:
   TypeWeapon: 1
   ShotsPerSecond: 3
   Damage: 10
+  RightArmEulerAngle: {x: 10, y: 10, z: 0}
+  LeftArmEulerAngle: {x: 30, y: -5, z: 0}
+  RightArmLocalPoz: {x: 0.4, y: 0, z: 0.15}
+  LeftArmLocalPoz: {x: -0.5, y: 0, z: -0.05}
 --- !u!4 &4130348586253326255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ef28e9505fe4ed9418f286607154da82, type: 3}
