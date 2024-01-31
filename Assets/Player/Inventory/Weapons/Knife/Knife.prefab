@@ -5165,6 +5165,8 @@ MonoBehaviour:
   LeftArmEulerAngle: {x: 30, y: -5, z: 0}
   RightArmLocalPoz: {x: 0.4, y: 0, z: 0.15}
   LeftArmLocalPoz: {x: -0.5, y: 0, z: -0.05}
+  LookToPointer: 0
+  RotateLeftHand: 1
 --- !u!4 &4130348586253326255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ef28e9505fe4ed9418f286607154da82, type: 3}

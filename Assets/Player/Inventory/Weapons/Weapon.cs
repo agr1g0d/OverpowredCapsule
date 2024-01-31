@@ -11,6 +11,8 @@ public abstract class Weapon : InventoryItem
     public Vector3 LeftArmEulerAngle = Vector3.up * 180;
     public Vector3 RightArmLocalPoz = Vector3.forward * 0.33f;
     public Vector3 LeftArmLocalPoz = Vector3.forward * -0.33f;
+    public bool LookToPointer;
+    public bool RotateLeftHand;
 }
 public enum TypeWeapon
 {

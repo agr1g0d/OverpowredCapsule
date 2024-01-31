@@ -14,6 +14,8 @@ public class WeaponManager : MonoBehaviour
 
     private List<Weapon> _weapons = new List<Weapon>();
     private int _currentWeapon = 0;
+    private bool _lookToPointer = true;
+
     
     [SerializeField] Camera _camera;
     [SerializeField] Transform _aim;
@@ -41,7 +43,6 @@ public class WeaponManager : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(ToAim);
         }
 
-        bool rotateArm = true;
 
         if (_weapons.Count > 0)
         {
@@ -55,26 +56,15 @@ public class WeaponManager : MonoBehaviour
             {
                 ChangeWeapon(2);
             }
-
-            switch (_weapons[_currentWeapon].TypeWeapon)
-            {
-                case TypeWeapon.knife: 
-                    rotateArm = false;
-                    break;
-                case TypeWeapon.pistol: 
-                    break;
-                default: 
-                    break;
-            }
         }
         if (!_flipManager.IsFlipping)
         {
-            if (rotateArm)
+            if (_lookToPointer)
             {
                 Arms.rotation = Quaternion.LookRotation(ToAim);
             } else
             {
-                Arms.rotation = Quaternion.Lerp(Arms.rotation, Quaternion.LookRotation(-_playerTransform.forward), Time.deltaTime * 10);
+                Arms.rotation = Quaternion.Lerp(Arms.rotation, Quaternion.LookRotation(-_playerTransform.forward, _playerTransform.up), Time.deltaTime * 10);
             }
         }
         else
@@ -90,14 +80,35 @@ public class WeaponManager : MonoBehaviour
         if (_weapons.IndexOf(weapon) != _currentWeapon)
         {
             weapon.PickUp(RightHand, true);
-            RightArm.localEulerAngles = _weapons[_currentWeapon].RightArmEulerAngle;
-            LeftArm.localEulerAngles = _weapons[_currentWeapon].LeftArmEulerAngle;
-            RightArm.localPosition = _weapons[_currentWeapon].RightArmLocalPoz;
-            LeftArm.localPosition = _weapons[_currentWeapon].LeftArmLocalPoz;
+            SetArmsProperties();
         } else
         {
             weapon.PickUp(RightHand, false);
         }
+    }
+
+    private void SetArmsProperties()
+    {
+        RightArm.localEulerAngles = _weapons[_currentWeapon].RightArmEulerAngle;
+        RightArm.localPosition = _weapons[_currentWeapon].RightArmLocalPoz;
+        LeftArm.SetParent(Arms);
+        LeftArm.localPosition = _weapons[_currentWeapon].LeftArmLocalPoz;
+        LeftArm.localEulerAngles = _weapons[_currentWeapon].LeftArmEulerAngle;
+        if (!_weapons[_currentWeapon].RotateLeftHand)
+        {
+            LeftArm.SetParent(_playerTransform);
+            LeftArm.localPosition =  new Vector3(-_weapons[_currentWeapon].LeftArmLocalPoz.z, 
+                _weapons[_currentWeapon].LeftArmLocalPoz.y, 
+                -_weapons[_currentWeapon].LeftArmLocalPoz.x)  
+                + Arms.localPosition;
+            LeftArm.localEulerAngles = _weapons[_currentWeapon].LeftArmEulerAngle + Vector3.up * -90;
+        } else
+        {
+            LeftArm.SetParent(Arms);
+            LeftArm.localPosition = _weapons[_currentWeapon].LeftArmLocalPoz;
+            LeftArm.localEulerAngles = _weapons[_currentWeapon].LeftArmEulerAngle;
+        }
+        _lookToPointer = _weapons[_currentWeapon].LookToPointer;
     }
 
     public void __UpdateWeapons()
@@ -129,10 +140,8 @@ public class WeaponManager : MonoBehaviour
         }
         _currentWeapon = index;
         _weapons[_currentWeapon].gameObject.SetActive(true);
-        RightArm.localEulerAngles = _weapons[_currentWeapon].RightArmEulerAngle;
-        LeftArm.localEulerAngles = _weapons[_currentWeapon].LeftArmEulerAngle;
-        RightArm.localPosition = _weapons[_currentWeapon].RightArmLocalPoz;
-        LeftArm.localPosition = _weapons[_currentWeapon].LeftArmLocalPoz;
+        SetArmsProperties();
+        
     }
 
 }

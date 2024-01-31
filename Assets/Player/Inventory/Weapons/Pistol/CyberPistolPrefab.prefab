@@ -159,7 +159,11 @@ MonoBehaviour:
   ShotsPerSecond: 6
   Damage: 5
   RightArmEulerAngle: {x: 0, y: 0, z: 0}
-  LeftArmEulerAngle: {x: 0, y: 180, z: 0}
+  LeftArmEulerAngle: {x: 60, y: 180, z: -90}
+  RightArmLocalPoz: {x: 0, y: 0, z: 0.33}
+  LeftArmLocalPoz: {x: -0, y: -0, z: -0.45}
+  LookToPointer: 1
+  RotateLeftHand: 0
   Power: 500
   _bulletSpawner: {fileID: 8317477639083628075}
   _effect: {fileID: 6221335797319141097}

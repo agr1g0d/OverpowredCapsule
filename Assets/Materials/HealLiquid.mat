@@ -63,7 +63,7 @@ Material:
     - _emission: 6
     - _fullnes: 0.25
     - _speed: 0
-    - _spherize_strenght: 5
+    - _spherize_strenght: -3
     - _tex_emission: 17
     m_Colors:
     - _Fresnel_color: {r: 0.5808262, g: 0.48584908, b: 1, a: 1}
