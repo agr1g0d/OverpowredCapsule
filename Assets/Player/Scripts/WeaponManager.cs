@@ -76,13 +76,12 @@ public class WeaponManager : MonoBehaviour
     public void AddWeapon(Weapon weapon)
     {
         _weapons.Add(weapon);
-
         if (_weapons.IndexOf(weapon) != _currentWeapon)
         {
             weapon.PickUp(RightHand, true);
-            SetArmsProperties();
         } else
         {
+            SetArmsProperties();
             weapon.PickUp(RightHand, false);
         }
     }
@@ -109,6 +108,7 @@ public class WeaponManager : MonoBehaviour
             LeftArm.localEulerAngles = _weapons[_currentWeapon].LeftArmEulerAngle;
         }
         _lookToPointer = _weapons[_currentWeapon].LookToPointer;
+        print(_currentWeapon);
     }
 
     public void __UpdateWeapons()
